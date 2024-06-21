@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 public class ParkingLogic
 {
     private List<ParkingSlot> parkingSlots;
@@ -82,11 +84,78 @@ public class ParkingLogic
         }
     }
 
+    // Report no. 3
+    public void GetVehiclesByOddEven(string selector)
+    {
+        var vehicles = parkingSlots
+                .Where(lot => lot.parkedVehicle?.licensePlate != null)
+                .Select(lot => lot.parkedVehicle?.licensePlate)
+                .ToList();
+
+        List<int> numbers = new List<int>();
+        List<string> resultPlates = new List<string>();
+
+        switch (selector)
+        {
+            case "odd":
+                foreach (string str in vehicles)
+                {
+                    string[] numbersOnly = str.Split('-');
+                    if (int.TryParse(numbersOnly[1], out int number))
+                    {
+                        if (number % 2 == 1)
+                        {
+                            numbers.Add(number);
+                            resultPlates.Add(str);
+                        }
+                    }
+                }
+
+                if (numbers.Any())
+                {
+                    Console.WriteLine("Vehicle count with odd plates: " + numbers.Count);
+                    Console.WriteLine(string.Join(" ", resultPlates));
+                }
+                else
+                {
+                    Console.WriteLine("Vehicle with odd plates does not exist!");
+                }
+                break;
+            case "even":
+                foreach (string str in vehicles)
+                {
+                    string[] numbersOnly = str.Split('-');
+                    if (int.TryParse(numbersOnly[1], out int number))
+                    {
+                        if (number % 2 != 1)
+                        {
+                            numbers.Add(number);
+                            resultPlates.Add(str);
+                        }
+                    }
+                }
+
+                if (numbers.Any())
+                {
+                    Console.WriteLine("Vehicle count with even plates: " + numbers.Count);
+                    Console.WriteLine(string.Join(" ", resultPlates));
+                }
+                else
+                {
+                    Console.WriteLine("Vehicle with odd plates does not exist!");
+                }
+                break;
+            default:
+                Console.WriteLine("Invalid option! Only use 'odd' or 'even'.");
+                break;
+        }
+    }
+
     // Report no. 4
     public void GetVehiclesByType(string vehicleType)
     {
         var vehicles = parkingSlots
-            .Where(lot => lot.parkedVehicle?.vehicleType.Equals(vehicleType, StringComparison.OrdinalIgnoreCase) == true)
+            .Where(lot => lot.parkedVehicle?.vehicleType.Equals(vehicleType) == true)
             .Select(lot => lot.parkedVehicle?.licensePlate)
             .ToList();
 
@@ -97,7 +166,7 @@ public class ParkingLogic
         }
         else
         {
-            Console.WriteLine("Vehicle with type " + vehicleType + " is not found");
+            Console.WriteLine("Vehicle with type " + vehicleType + " does not exist");
         }
     }
 
@@ -105,7 +174,7 @@ public class ParkingLogic
     public void GetVehiclesByColor(string color)
     {
         var vehicles = parkingSlots
-            .Where(lot => lot.parkedVehicle?.color.Equals(color, StringComparison.OrdinalIgnoreCase) == true)
+            .Where(lot => lot.parkedVehicle?.color.Equals(color) == true)
             .Select(lot => lot.parkedVehicle?.licensePlate)
             .ToList();
 
@@ -116,7 +185,7 @@ public class ParkingLogic
         }
         else
         {
-            Console.WriteLine("Vehicle with color " + color + " is not found");
+            Console.WriteLine("Vehicle with color " + color + " does not exist");
         }
     }
 }

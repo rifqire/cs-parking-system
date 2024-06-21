@@ -35,15 +35,17 @@
                 case "empty_slots": case "es":
                     parkingLogic?.GetEmptySlots();
                     break;
-                // Report no. 3
+                // Report no. 3, lpwoe odd, lpwoe even
                 case "license_plate_with_odd_even": case "lpwoe":
+                    string selector = commandParts[1];
+                    parkingLogic?.GetVehiclesByOddEven(selector);
                     break;
-                // Report no. 4
+                // Report no. 4, lpwt car, lpwt bike etc.
                 case "license_plate_with_type": case "lpwt":
                     string vehicleType = commandParts[1];
                     parkingLogic?.GetVehiclesByType(vehicleType);
                     break;
-                // Report no. 5
+                // Report no. 5, lpwc black, lpwc pink etc.
                 case "license_plate_with_color": case "lpwc":
                     string color = commandParts[1];
                     parkingLogic?.GetVehiclesByColor(color);
