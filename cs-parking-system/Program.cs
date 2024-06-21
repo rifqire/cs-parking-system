@@ -27,6 +27,17 @@
                 case "status": case "s":
                     parkingLogic?.Status();
                     break;
+                // Report no. 1
+                case "filled_slots": case "fs":
+                    parkingLogic?.GetFilledSlots();
+                    break;
+                // Report no. 2
+                case "empty_slots": case "es":
+                    parkingLogic?.GetEmptySlots();
+                    break;
+                // Report no. 3
+                case "license_plate_with_odd_even": case "lpwoe":
+                    break;
                 // Report no. 4
                 case "license_plate_with_type": case "lpwt":
                     string vehicleType = commandParts[1];

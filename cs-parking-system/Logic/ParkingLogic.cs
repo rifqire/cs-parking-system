@@ -1,7 +1,7 @@
 public class ParkingLogic
 {
     private List<ParkingSlot> parkingSlots;
-    
+
     public ParkingLogic(int totalSlot)
     {
         parkingSlots = new List<ParkingSlot>(totalSlot);
@@ -19,7 +19,7 @@ public class ParkingLogic
             Console.WriteLine("Sorry, parking lot is full");
             return;
         }
-        
+
         availableSlot.parkedVehicle = vehicle;
         Console.WriteLine($"Allocated slot number: {availableSlot.slotNumber + 1}");
     }
@@ -42,10 +42,43 @@ public class ParkingLogic
         Console.WriteLine("Slot\tLicense Plate\tType\tColor");
         foreach (var lot in parkingSlots)
         {
-            if (lot.parkedVehicle != null)
-            {
-                Console.WriteLine($"{lot.slotNumber + 1}\t{lot.parkedVehicle.licensePlate}\t{lot.parkedVehicle.vehicleType}\t{lot.parkedVehicle.color}");
-            }
+            Console.WriteLine($"{lot.slotNumber + 1}\t{lot.parkedVehicle?.licensePlate}\t{lot.parkedVehicle?.vehicleType}\t{lot.parkedVehicle?.color}");
+        }
+    }
+
+    // Report no. 1
+    public void GetFilledSlots()
+    {
+        var filledSlotCount = parkingSlots
+            .Where(lot => lot.parkedVehicle?.licensePlate != null)
+            .Select(lot => lot.parkedVehicle?.licensePlate)
+            .Count();
+
+        if (filledSlotCount > 0)
+        {
+            Console.WriteLine("Filled slots: " + filledSlotCount);
+        }
+        else
+        {
+            Console.WriteLine("There is no filled slots!");
+        }
+    }
+
+    // Report no. 2
+    public void GetEmptySlots()
+    {
+        var emptySlotCount = parkingSlots
+            .Where(lot => lot.parkedVehicle?.licensePlate == null)
+            .Select(lot => lot.parkedVehicle?.licensePlate)
+            .Count();
+
+        if (emptySlotCount > 0)
+        {
+            Console.WriteLine("Empty slots: " + emptySlotCount);
+        }
+        else
+        {
+            Console.WriteLine("There is no empty slots!");
         }
     }
 
@@ -56,7 +89,7 @@ public class ParkingLogic
             .Where(lot => lot.parkedVehicle?.vehicleType.Equals(vehicleType, StringComparison.OrdinalIgnoreCase) == true)
             .Select(lot => lot.parkedVehicle?.licensePlate)
             .ToList();
-        
+
         if (vehicles.Any())
         {
             Console.WriteLine("Vehicle count with type " + vehicleType + ": " + vehicles.Count);
@@ -75,7 +108,7 @@ public class ParkingLogic
             .Where(lot => lot.parkedVehicle?.color.Equals(color, StringComparison.OrdinalIgnoreCase) == true)
             .Select(lot => lot.parkedVehicle?.licensePlate)
             .ToList();
-        
+
         if (vehicles.Any())
         {
             Console.WriteLine("Vehicle count with color " + color + ": " + vehicles.Count);
