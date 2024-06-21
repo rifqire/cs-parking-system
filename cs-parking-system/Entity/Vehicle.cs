@@ -1,13 +1,14 @@
 public class Vehicle
 {
     public string licensePlate { get; set; }
-    public string color { get; set; }
     public string vehicleType { get; set; }
+    public string color { get; set; }
+    
 
-    public Vehicle(string licensePlate, string color, string vehicleType)
+    public Vehicle(string licensePlate, string vehicleType, string color)
     {
         this.licensePlate = licensePlate;
-        this.color = color;
         this.vehicleType = vehicleType;
+        this.color = color;
     }
 }
