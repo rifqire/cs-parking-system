@@ -10,8 +10,6 @@ This C# application is designed to manage a parking lot, allowing users to add, 
    - [ParkingLogic](#parkinglogic)
 2. [Program.cs](#programcs)
 3. [How to Use](#how-to-use)
-4. [Requirements](#requirements)
-5. [Setup](#setup)
 
 ## Classes
 
@@ -87,7 +85,7 @@ To park the vehicle and assign the empty slot sequentially:
     }
 ```
 
-To empty a parking lot and remove the vehicle:
+To empty a parking slot and remove the parked vehicle:
 ```csharp
     public void Leave(int slotNumber)
     {
